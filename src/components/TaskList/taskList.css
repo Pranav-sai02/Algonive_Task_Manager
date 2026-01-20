@@ -1,0 +1,214 @@
+.tl{
+  padding: 18px 20px;
+}
+
+.tl__title{
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.tl__empty{
+  opacity: 0.75;
+  font-size: 0.95rem;
+}
+
+.tl__grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.card{
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.card__main{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.card__title{
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.card__desc{
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+.card__meta{
+  font-size: 0.82rem;
+  color: #1e40af;
+  margin-top: 4px;
+}
+
+.card__actions{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.badge{
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.badge--pending{
+  background: rgba(245, 158, 11, 0.15);
+  color: #92400e;
+}
+
+.badge--done{
+  background: rgba(34, 197, 94, 0.15);
+  color: #166534;
+}
+
+.icon{
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.edit{
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.75);
+  font-size: 0.92rem;
+}
+
+.edit--area{
+  min-height: 60px;
+  resize: vertical;
+}
+
+@media (max-width: 900px){
+  .tl__grid{ grid-template-columns: 1fr; }
+  .card{ flex-direction: column; }
+  .card__actions{ justify-content: flex-end; }
+}
+.card--editing{
+  display: grid;
+  grid-template-columns: 1fr;   /* full width editor */
+  gap: 12px;
+}
+
+.card__editGrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.card__editFull{
+  grid-column: 1 / -1;
+}
+
+.card__label{
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #334155;
+  margin-bottom: 6px;
+  display: block;
+  opacity: 0.9;
+}
+
+.card__editField{
+  display: flex;
+  flex-direction: column;
+}
+
+.card__editActions{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn{
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 800;
+  background: #2563eb;
+  color: white;
+}
+
+.btn--ghost{
+  background: rgba(255,255,255,0.35);
+  border: 1px solid rgba(0,0,0,0.10);
+  color: #0f172a;
+}
+
+@media (max-width: 900px){
+  .card__editGrid{ grid-template-columns: 1fr; }
+}
+.card__editGrid{
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Title wider than date */
+  gap: 14px;
+}
+
+.card__editFull{
+  grid-column: 1 / -1;
+}
+
+.card__label{
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.card__editField{
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobile: stack nicely */
+@media (max-width: 900px){
+  .card__editGrid{
+    grid-template-columns: 1fr;
+  }
+}
+/* View block fades out */
+.card__view{
+  transition: opacity 140ms ease;
+}
+.card__view.is-hidden{
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Edit block slides open */
+.card__edit{
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+
+  transform: translateY(-4px);
+  transition: max-height 220ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+.card__edit.is-open{
+  max-height: 420px; /* big enough for your edit form */
+  opacity: 1;
+  transform: translateY(0);
+}

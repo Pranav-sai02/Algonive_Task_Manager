@@ -1,0 +1,69 @@
+.tf{
+  padding: 18px 20px;
+}
+
+.tf__title{
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.tf__grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.tf__field{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tf__field label{
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.tf__field input,
+.tf__field textarea{
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.7);
+  font-size: 0.95rem;
+}
+
+.tf__field textarea{
+  min-height: 70px;
+  resize: vertical;
+}
+
+.tf__full{
+  grid-column: 1 / -1;
+}
+
+.tf__actions{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.tf__btn{
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tf__btn:hover{
+  box-shadow: 0 6px 16px rgba(37,99,235,0.25);
+}
+
+@media (max-width: 900px){
+  .tf__grid{ grid-template-columns: 1fr; }
+}

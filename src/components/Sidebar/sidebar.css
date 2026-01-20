@@ -1,0 +1,68 @@
+.sb {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Brand */
+.sb__brand {
+  text-align: center;
+  font-size: 1.25rem;      /* bigger */
+  font-weight: 700;        /* bold */
+  letter-spacing: 0.3px;
+  padding: 22px 0 22px;
+}
+
+/* Menu container */
+.sb__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Menu item */
+.sb__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+
+  font-size: 0.95rem;
+  font-weight: 600;       /* bolder text */
+  color: #334155;         /* slate-ish */
+
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.sb__item:hover {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+/* Icon */
+.sb__icon {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  opacity: 0.85;
+}
+
+/* Active state */
+.sb__item.active {
+  background: rgba(59, 130, 246, 0.14);
+  color: #2563eb;
+}
+
+/* Optional: icon color follows text */
+.sb__item.active .sb__icon {
+  color: #2563eb;
+}
+
+
+@media (max-width: 900px){
+  .app__sidebar { margin-bottom: 18px; }
+}
