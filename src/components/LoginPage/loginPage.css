@@ -1,0 +1,261 @@
+/* =========================
+   AUTH (LOGIN/SIGNUP) PAGE
+   Locked: glass + blue gradient + abstract shapes
+   ========================= */
+
+/* ====== Page base ====== */
+.auth{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(900px 600px at 18% 18%, rgba(120, 210, 255, 0.28), transparent 60%),
+    radial-gradient(900px 700px at 82% 76%, rgba(0, 140, 255, 0.22), transparent 55%),
+    linear-gradient(135deg, #071a2e 0%, #072642 45%, #06345d 100%);
+}
+
+/* ====== Abstract shapes ====== */
+.auth__bg{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.blob{
+  position: absolute;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255,255,255,0.22),
+    rgba(255,255,255,0.05)
+  );
+  box-shadow: 0 20px 80px rgba(0,0,0,0.25);
+  transform: translateZ(0);
+}
+
+.blob--1{ width:520px; height:520px; left:-180px; top:-160px; opacity:.55; }
+.blob--2{ width:380px; height:380px; right:-140px; top:120px; opacity:.40; }
+.blob--3{ width:520px; height:520px; right:40px; bottom:-260px; opacity:.35; }
+.blob--4{ width:260px; height:260px; left:240px; bottom:120px; opacity:.28; }
+
+/* ====== Main wrapper ====== */
+.auth__wrap{
+  width: min(1100px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ====== Login-only glass token (DO NOT reuse Task-1 .glass) ====== */
+.authGlass{
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 18px 60px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+/* ====== Brand panel ====== */
+.auth__brand{
+  padding: 28px;
+  color: rgba(255, 255, 255, 0.92);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.brand__top{
+  display: grid;
+  gap: 10px;
+}
+
+.brand__logo{
+  width: 42px;
+  height: 42px;
+  position: relative;
+  margin-bottom: 6px;
+}
+.brand__logo span{
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  transform: rotate(12deg);
+  background: linear-gradient(135deg, rgba(72,190,255,0.90), rgba(255,255,255,0.12));
+}
+.brand__logo span:last-child{
+  inset: 9px;
+  transform: rotate(-18deg);
+  background: linear-gradient(135deg, rgba(255,255,255,0.20), rgba(0,160,255,0.35));
+}
+
+.brand__title{
+  margin: 0;
+  font-size: 34px;
+  letter-spacing: 0.8px;
+  line-height: 1.05;
+}
+.brand__title span{
+  display: block;
+  font-size: 16px;
+  opacity: 0.85;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.brand__tagline{
+  margin: 0;
+  font-size: 18px;
+  opacity: 0.86;
+}
+
+.brand__bullets{
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  opacity: 0.9;
+}
+.brand__bullets li{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.brand__bullets li::before{
+  content: "✓";
+  font-weight: 700;
+  opacity: 0.95;
+}
+
+.brand__footer{
+  margin-top: 28px;
+  font-size: 12px;
+  opacity: 0.65;
+}
+
+/* ====== Auth card ====== */
+.auth__card{
+  padding: 28px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.card__head h2{
+  margin: 0;
+  font-size: 28px;
+}
+.card__head p{
+  margin: 8px 0 0;
+  opacity: 0.78;
+}
+
+.card__form{
+  margin-top: 18px;
+  display: grid;
+  gap: 14px;
+}
+
+/* ====== Fields ====== */
+.field{
+  display: grid;
+  gap: 8px;
+}
+.field__label{
+  font-size: 13px;
+  opacity: 0.82;
+}
+.field__control{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.16);
+}
+.field__icon{
+  opacity: 0.75;
+  width: 22px;
+  display: grid;
+  place-items: center;
+}
+.field__control input{
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: rgba(255,255,255,0.92);
+  font-size: 14px;
+}
+.field__control input::placeholder{
+  color: rgba(255,255,255,0.55);
+}
+
+/* ====== Actions ====== */
+.card__row{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -2px;
+}
+
+.btn{
+  border: 0;
+  cursor: pointer;
+  border-radius: 16px;
+  padding: 12px 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.btn--primary{
+  color: rgba(255,255,255,0.95);
+  background: linear-gradient(135deg, rgba(0,150,255,0.95), rgba(0,90,255,0.75));
+  box-shadow: 0 18px 45px rgba(0,120,255,0.28);
+}
+.btn--primary:active{
+  transform: translateY(1px);
+}
+
+.link{
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: rgba(120,220,255,0.95);
+  cursor: pointer;
+  font-weight: 700;
+}
+.link:hover{
+  opacity: 0.9;
+}
+
+.card__switch{
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6px;
+  opacity: 0.88;
+  font-size: 14px;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 900px){
+  .auth__wrap{
+    grid-template-columns: 1fr;
+  }
+  .auth__brand{
+    padding: 20px;
+  }
+  .brand__title{
+    font-size: 28px;
+  }
+}

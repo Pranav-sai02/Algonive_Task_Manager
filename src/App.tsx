@@ -1,50 +1,37 @@
-import "./App.css";
-import { Sidebar } from "./components/Sidebar/Sidebar";
-import { Header } from "./components/Header/Header";
-import { ReminderBanner } from "./components/ReminderBanner/ReminderBanner";
-import { TaskForm } from "./components/TaskForm/TaskForm";
-import { TaskList } from "./components/TaskList/TaskList";
-import { useTasks } from "./hooks/useTasks";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import LoginPage from "./components/LoginPage/LoginPage";
+import TasksPage from "./components/TasksPage/TasksPage";
 
 export default function App() {
-  const {
-    filter,
-    setFilter,
-    counts,
-    tasks,
-    addTask,
-    toggleTask,
-    deleteTask,
-    editTask,
-  } = useTasks();
+  const [loggedIn, setLoggedIn] = useState(
+    Boolean(localStorage.getItem("tm_session_user"))
+  );
+
+  useEffect(() => {
+    const handler = () => {
+      setLoggedIn(Boolean(localStorage.getItem("tm_session_user")));
+    };
+    window.addEventListener("storage", handler);
+    return () => window.removeEventListener("storage", handler);
+  }, []);
 
   return (
-    <div className="app">
-      <aside className="app__sidebar glass">
-        <Sidebar filter={filter} setFilter={setFilter} />
-      </aside>
+    <Routes>
+      <Route
+        path="/login"
+        element={loggedIn ? <Navigate to="/app" replace /> : <LoginPage />}
+      />
 
-      <main className="app__main">
-        <header className="app__top glass">
-          <Header />
-          <ReminderBanner counts={counts} />
-        </header>
+      <Route
+        path="/app"
+        element={loggedIn ? <TasksPage /> : <Navigate to="/login" replace />}
+      />
 
-        <section className="app__content">
-          <div className="glass">
-            <TaskForm onAdd={addTask} />
-          </div>
-
-          <div className="glass">
-            <TaskList
-              tasks={tasks}
-              onToggle={toggleTask}
-              onDelete={deleteTask}
-              onEdit={editTask}
-            />
-          </div>
-        </section>
-      </main>
-    </div>
+      <Route
+        path="*"
+        element={<Navigate to={loggedIn ? "/app" : "/login"} replace />}
+      />
+    </Routes>
   );
 }

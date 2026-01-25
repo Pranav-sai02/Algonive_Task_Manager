@@ -1,28 +1,58 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import "./taskList.css";
 import type { Task } from "../../types/task";
 import { formatDue, isDueSoon, isOverdue } from "../../utils/dates";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 
-import { FiEdit, FiCheck, FiTrash2 } from "react-icons/fi";
+import { getSession } from "../../services/session";
+import { loadUsers } from "../../services/userStorage";
 
 type Props = {
   task: Task;
-  onToggle: (id: string) => void;
+  onStatusChange: (id: string, status: Task["status"]) => void;
   onDelete: (id: string) => void;
   onEdit: (
     id: string,
-    patch: Partial<Pick<Task, "title" | "description" | "dueDate">>
+    patch: Partial<Pick<Task, "title" | "description" | "dueDate" | "assignedTo">>
   ) => void;
 };
 
-export const TaskItem = ({ task, onToggle, onDelete, onEdit }: Props) => {
+type VisualStatus = "completed" | "overdue" | "soon" | "pending";
+
+function getUserNameById(userId: string): string {
+  if (!userId || userId === "LEGACY") return "Unknown";
+  const users = loadUsers();
+  const u = users.find((x) => x.id === userId);
+  return u ? u.name : "Unknown";
+}
+
+export const TaskItem = ({ task, onStatusChange, onDelete, onEdit }: Props) => {
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState(task.title);
   const [desc, setDesc] = useState(task.description);
   const [due, setDue] = useState(task.dueDate);
 
-  const overdue = task.status !== "COMPLETED" && isOverdue(task.dueDate);
-  const soon = task.status !== "COMPLETED" && !overdue && isDueSoon(task.dueDate);
+  const session = getSession();
+  const myId = session?.userId;
+
+  const assignedByName =
+    task.createdBy === myId ? "You" : getUserNameById(task.createdBy);
+
+  const { overdue, soon, visual } = useMemo(() => {
+    const isDone = task.status === "COMPLETED";
+    const overdue = !isDone && isOverdue(task.dueDate);
+    const soon = !isDone && !overdue && isDueSoon(task.dueDate);
+
+    const visual: VisualStatus = isDone
+      ? "completed"
+      : overdue
+      ? "overdue"
+      : soon
+      ? "soon"
+      : "pending";
+
+    return { overdue, soon, visual };
+  }, [task.status, task.dueDate]);
 
   function save() {
     if (!title.trim() || !due) return;
@@ -37,8 +67,16 @@ export const TaskItem = ({ task, onToggle, onDelete, onEdit }: Props) => {
     setEditing(false);
   }
 
-  const badgeClass = task.status === "COMPLETED" ? "badge--done" : "badge--pending";
-  const badgeText = task.status === "COMPLETED" ? "Completed" : "Pending";
+  const badgeText =
+    task.status === "COMPLETED"
+      ? "Completed"
+      : overdue
+      ? "Overdue"
+      : soon
+      ? "Due soon"
+      : task.status === "IN_PROGRESS"
+      ? "In progress"
+      : "Pending";
 
   const statusText =
     task.status === "COMPLETED"
@@ -47,14 +85,15 @@ export const TaskItem = ({ task, onToggle, onDelete, onEdit }: Props) => {
       ? "Overdue"
       : soon
       ? "Due soon"
+      : task.status === "IN_PROGRESS"
+      ? "In progress"
       : "On track";
 
   return (
-    <div className={`card ${editing ? "card--editing" : ""}`}>
+    <div className={["card", `card--${visual}`, editing ? "card--editing" : ""].join(" ")}>
       <div className="card__main">
         {editing ? (
           <div className="card__editGrid">
-            {/* Row 1: Title + Due date */}
             <div className="card__editField">
               <label className="card__label">Title</label>
               <input
@@ -75,7 +114,6 @@ export const TaskItem = ({ task, onToggle, onDelete, onEdit }: Props) => {
               />
             </div>
 
-            {/* Row 2: Description full width */}
             <div className="card__editField card__editFull">
               <label className="card__label">Description</label>
               <textarea
@@ -90,19 +128,23 @@ export const TaskItem = ({ task, onToggle, onDelete, onEdit }: Props) => {
           <>
             <div className="card__title">{task.title}</div>
 
-            {task.description ? (
-              <div className="card__desc">{task.description}</div>
-            ) : null}
+            {task.description ? <div className="card__desc">{task.description}</div> : null}
+
+            {/* ✅ Assigned By (creator) */}
+            <div className="card__who">
+              Assigned by: <strong>{assignedByName}</strong>
+            </div>
 
             <div className="card__meta">
-              Due: {formatDue(task.dueDate)} • {statusText}
+              <span className="card__due">Due: {formatDue(task.dueDate)}</span>
+              <span> • {statusText}</span>
             </div>
           </>
         )}
       </div>
 
       <div className="card__actions">
-        {!editing && <span className={`badge ${badgeClass}`}>{badgeText}</span>}
+        {!editing && <span className={`badge badge--${visual}`}>{badgeText}</span>}
 
         {editing ? (
           <div className="card__editActions">
@@ -115,30 +157,23 @@ export const TaskItem = ({ task, onToggle, onDelete, onEdit }: Props) => {
           </div>
         ) : (
           <>
-            <button
-              type="button"
-              className="icon"
-              onClick={() => setEditing(true)}
-              title="Edit"
+            {/* ✅ Status (3-state) */}
+            <select
+              className="statusSelect"
+              value={task.status}
+              onChange={(e) => onStatusChange(task.id, e.target.value as Task["status"])}
+              title="Change status"
             >
+              <option value="PENDING">Pending</option>
+              <option value="IN_PROGRESS">In Progress</option>
+              <option value="COMPLETED">Completed</option>
+            </select>
+
+            <button type="button" className="icon" onClick={() => setEditing(true)} title="Edit">
               <FiEdit />
             </button>
 
-            <button
-              type="button"
-              className="icon"
-              onClick={() => onToggle(task.id)}
-              title={task.status === "COMPLETED" ? "Mark pending" : "Mark complete"}
-            >
-              <FiCheck opacity={task.status === "COMPLETED" ? 0.4 : 1} />
-            </button>
-
-            <button
-              type="button"
-              className="icon danger"
-              onClick={() => onDelete(task.id)}
-              title="Delete"
-            >
+            <button type="button" className="icon danger" onClick={() => onDelete(task.id)} title="Delete">
               <FiTrash2 />
             </button>
           </>

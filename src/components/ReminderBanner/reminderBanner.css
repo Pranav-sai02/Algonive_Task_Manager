@@ -1,10 +1,36 @@
 .rb{
   align-self: flex-start;
-  background: rgba(37, 99, 235, 0.08);
-  border: 1px solid rgba(37, 99, 235, 0.20);
+
   padding: 10px 14px;
   border-radius: 999px;
+
   font-size: 0.9rem;
-  color: #1e40af;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  /* neutral baseline */
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #0f172a;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* 🟡 Due soon */
+.rb--soon{
+  background: rgba(245, 158, 11, 0.16);
+  border: 1px solid rgba(245, 158, 11, 0.30);
+  color: #92400e;
+}
+
+/* 🔴 Overdue */
+.rb--overdue{
+  background: rgba(220, 80, 80, 0.16);
+  border: 1px solid rgba(220, 80, 80, 0.30);
+  color: #991b1b;
 }

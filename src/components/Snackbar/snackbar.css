@@ -1,0 +1,131 @@
+.snackbar {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+
+  min-width: 260px;
+  max-width: 360px;
+
+  padding: 12px 16px;
+  border-radius: 12px;
+
+  /* ✅ neutral base so it doesn't force blue */
+  background: rgba(255, 255, 255, 0.30);
+  color: #0f172a;
+
+  border: 1px solid rgba(255, 255, 255, 0.28);
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  animation: slideIn 0.25s ease-out;
+}
+
+.snackbar__msg {
+  line-height: 1.25;
+}
+
+.snackbar button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.85;
+}
+.snackbar button:hover {
+  opacity: 1;
+}
+
+/* ✅ Variants */
+.snackbar--success {
+  background: linear-gradient(
+    135deg,
+    rgba(40, 180, 120, 0.88),
+    rgba(30, 140, 100, 0.88)
+  );
+  color: #fff;
+}
+
+.snackbar--error {
+  background: linear-gradient(
+    135deg,
+    rgba(139, 22, 22, 0.92),
+    rgba(183, 10, 10, 0.92)
+  );
+  color: #fff;
+}
+
+.snackbar--info {
+  background: linear-gradient(
+    135deg,
+    rgba(80, 160, 240, 0.92),
+    rgba(40, 120, 200, 0.92)
+  );
+  color: #fff;
+}
+
+.snackbar--warning {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.94),
+    rgba(217, 119, 6, 0.94)
+  );
+  color: #1f2a37;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.snackbar{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+
+  min-width: 260px;
+  max-width: 360px;
+
+  padding: 12px 16px;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* ✅ smooth motion both directions */
+  transition: transform 220ms ease, opacity 220ms ease;
+
+  /* stays clickable only when visible */
+  pointer-events: auto;
+}
+
+.snackbar--closed{
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+}
+
+.snackbar--open{
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -1,10 +1,14 @@
 import "./header.css";
 
-export const Header = () => {
+export function Header() {
   return (
-    <div className="hd">
-      <div className="hd__title">Algonive Task Manager</div>
-      <div className="hd__sub">Web Development Internship Project</div>
+    <div className="header">
+      <div className="header__left">
+        <h1>Algonive Task Manager</h1>
+        <span className="header__subtitle">
+          Web Development Internship Project
+        </span>
+      </div>
     </div>
   );
-};
+}

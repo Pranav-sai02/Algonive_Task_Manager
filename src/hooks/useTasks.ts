@@ -1,37 +1,54 @@
 import { useEffect, useMemo, useState } from "react";
-import type { Task, TaskFilter } from "../types/task";
+import type { Task, TaskFilter, TaskStatus } from "../types/task";
 import { loadTasks, saveTasks } from "../services/taskStorage";
 import { isDueSoon, isOverdue } from "../utils/dates";
+import { getSession } from "../services/session";
 
 export type CreateTaskInput = {
   title: string;
   description: string;
   dueDate: string;
+  assignedTo: string; // ✅ userId
 };
 
 export function useTasks() {
-  // ✅ loads once during initial state creation (does NOT wipe storage)
+  const session = getSession(); // { userId, name, email } | null
+  const myId = session?.userId ?? "";
+
   const [items, setItems] = useState<Task[]>(() => loadTasks());
   const [filter, setFilter] = useState<TaskFilter>("ALL");
 
-  // ✅ now safe — items already came from storage
   useEffect(() => {
     saveTasks(items);
   }, [items]);
 
+  // ✅ only tasks relevant to current user (small teams)
+  const visibleItems = useMemo(() => {
+    if (!myId) return [];
+    return items.filter((t) => t.createdBy === myId || t.assignedTo === myId);
+  }, [items, myId]);
+
   const tasks = useMemo(() => {
-    const sorted = [...items].sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+    const sorted = [...visibleItems].sort((a, b) => a.dueDate.localeCompare(b.dueDate));
     if (filter === "ALL") return sorted;
     return sorted.filter((t) => t.status === filter);
-  }, [items, filter]);
+  }, [visibleItems, filter]);
 
   const counts = useMemo(() => {
-    const dueSoon = items.filter((t) => t.status !== "COMPLETED" && isDueSoon(t.dueDate)).length;
-    const overdue = items.filter((t) => t.status !== "COMPLETED" && isOverdue(t.dueDate)).length;
+    const dueSoon = visibleItems.filter(
+      (t) => t.status !== "COMPLETED" && isDueSoon(t.dueDate)
+    ).length;
+
+    const overdue = visibleItems.filter(
+      (t) => t.status !== "COMPLETED" && isOverdue(t.dueDate)
+    ).length;
+
     return { dueSoon, overdue };
-  }, [items]);
+  }, [visibleItems]);
 
   function addTask(input: CreateTaskInput) {
+    if (!myId) return;
+
     const now = new Date().toISOString();
     const task: Task = {
       id: crypto.randomUUID(),
@@ -39,18 +56,36 @@ export function useTasks() {
       description: input.description.trim(),
       dueDate: input.dueDate,
       status: "PENDING",
+
+      createdBy: myId,
+      assignedTo: input.assignedTo,
+
       createdAt: now,
       updatedAt: now,
     };
+
     setItems((prev) => [task, ...prev]);
   }
 
+  // ✅ 3-state status update
+  function setStatus(id: string, status: TaskStatus) {
+    const now = new Date().toISOString();
+    setItems((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, status, updatedAt: now } : t))
+    );
+  }
+
+  // Optional: keep old toggle behavior (PENDING <-> COMPLETED)
   function toggleTask(id: string) {
     const now = new Date().toISOString();
     setItems((prev) =>
       prev.map((t) =>
         t.id === id
-          ? { ...t, status: t.status === "COMPLETED" ? "PENDING" : "COMPLETED", updatedAt: now }
+          ? {
+              ...t,
+              status: t.status === "COMPLETED" ? "PENDING" : "COMPLETED",
+              updatedAt: now,
+            }
           : t
       )
     );
@@ -60,7 +95,10 @@ export function useTasks() {
     setItems((prev) => prev.filter((t) => t.id !== id));
   }
 
-  function editTask(id: string, patch: Partial<Pick<Task, "title" | "description" | "dueDate">>) {
+  function editTask(
+    id: string,
+    patch: Partial<Pick<Task, "title" | "description" | "dueDate" | "assignedTo">>
+  ) {
     const now = new Date().toISOString();
     setItems((prev) =>
       prev.map((t) =>
@@ -68,8 +106,10 @@ export function useTasks() {
           ? {
               ...t,
               title: patch.title !== undefined ? patch.title.trim() : t.title,
-              description: patch.description !== undefined ? patch.description.trim() : t.description,
+              description:
+                patch.description !== undefined ? patch.description.trim() : t.description,
               dueDate: patch.dueDate !== undefined ? patch.dueDate : t.dueDate,
+              assignedTo: patch.assignedTo !== undefined ? patch.assignedTo : t.assignedTo,
               updatedAt: now,
             }
           : t
@@ -77,5 +117,16 @@ export function useTasks() {
     );
   }
 
-  return { tasks, filter, setFilter, counts, addTask, toggleTask, deleteTask, editTask };
+  return {
+    tasks,
+    filter,
+    setFilter,
+    counts,
+    addTask,
+    setStatus,   // ✅ use this in UI
+    toggleTask,  // optional backward compatibility
+    deleteTask,
+    editTask,
+    myId,
+  };
 }

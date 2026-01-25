@@ -1,23 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./taskForm.css";
+import { loadUsers } from "../../services/userStorage";
 
 type Props = {
-  onAdd: (input: { title: string; description: string; dueDate: string }) => void;
+  onAdd: (input: {
+    title: string;
+    description: string;
+    dueDate: string;
+    assignedTo: string;
+  }) => void;
+  myId: string;
 };
 
-export const TaskForm = ({ onAdd }: Props) => {
+export const TaskForm = ({ onAdd, myId }: Props) => {
   const [title, setTitle] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [description, setDescription] = useState("");
+  const [assignedTo, setAssignedTo] = useState(myId);
+
+  const [users, setUsers] = useState<{ id: string; name: string }[]>([]);
+
+  useEffect(() => {
+    const allUsers = loadUsers();
+    setUsers(allUsers.map((u) => ({ id: u.id, name: u.name })));
+  }, []);
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!title.trim() || !dueDate) return;
 
-    onAdd({ title, description, dueDate });
+    onAdd({ title, description, dueDate, assignedTo });
     setTitle("");
     setDueDate("");
     setDescription("");
+    setAssignedTo(myId); // reset to self
   }
 
   return (
@@ -45,6 +61,21 @@ export const TaskForm = ({ onAdd }: Props) => {
           />
         </div>
 
+        {/* ✅ Assignment dropdown */}
+        <div className="tf__field">
+          <label>Assign To</label>
+          <select
+            value={assignedTo}
+            onChange={(e) => setAssignedTo(e.target.value)}
+          >
+            {users.map((u) => (
+              <option key={u.id} value={u.id}>
+                {u.name} {u.id === myId ? "(You)" : ""}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="tf__field tf__full">
           <label>Description</label>
           <textarea
@@ -56,7 +87,9 @@ export const TaskForm = ({ onAdd }: Props) => {
       </div>
 
       <div className="tf__actions">
-        <button type="submit" className="tf__btn">Add Task</button>
+        <button type="submit" className="tf__btn">
+          Add Task
+        </button>
       </div>
     </form>
   );

@@ -212,3 +212,91 @@
   opacity: 1;
   transform: translateY(0);
 }
+/* ---------------------------------------
+   Task Item color coding (default)
+---------------------------------------- */
+
+/* Left accent bar (subtle but clear) */
+.card {
+  position: relative;
+  border-left: 5px solid transparent;
+}
+
+/* Completed = green */
+.card--completed {
+  border-left-color: #2ecc71;
+  background: rgba(46, 204, 113, 0.08);
+}
+.card--completed .card__title {
+  text-decoration: line-through;
+  opacity: 0.75;
+}
+
+/* Pending = orange */
+.card--pending {
+  border-left-color: #f39c12;
+  background: rgba(243, 156, 18, 0.08);
+}
+
+/* Due soon = yellow */
+.card--soon {
+  border-left-color: #f1c40f;
+  background: rgba(241, 196, 15, 0.10);
+}
+
+/* Overdue = red */
+.card--overdue {
+  border-left-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.10);
+}
+.card--overdue .card__due {
+  color: #e74c3c;
+  font-weight: 700;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+/* These override your old badge--done / badge--pending safely */
+.badge--completed {
+  background: #2ecc71;
+  color: #fff;
+}
+.badge--pending {
+  background: #f39c12;
+  color: #fff;
+}
+.badge--soon {
+  background: #f1c40f;
+  color: #1f2a37;
+}
+.badge--overdue {
+  background: #e74c3c;
+  color: #fff;
+}
+.statusSelect{
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: inherit;
+  outline: none;
+}
+.statusSelect option{
+  color: #111;
+}
+.card__who{
+  font-size: 0.8rem;
+  color: #475569;
+  margin-top: 4px;
+}

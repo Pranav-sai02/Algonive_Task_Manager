@@ -1,10 +1,18 @@
-.hd__title{
-  font-size: 1.55rem;
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.header__left h1 {
+  margin: 0;
+  font-size: 22px;
   font-weight: 800;
 }
 
-.hd__sub{
-  font-size: 0.9rem;
-  color: #64748b;
+.header__subtitle {
+  display: inline-block;
   margin-top: 2px;
+  font-size: 13px;
+  opacity: 0.7;
+  color: #64748b;
 }

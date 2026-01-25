@@ -27,12 +27,20 @@
 }
 
 .tf__field input,
-.tf__field textarea{
+.tf__field textarea,
+.tf__field select{
   padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid rgba(0,0,0,0.12);
   background: rgba(255,255,255,0.7);
   font-size: 0.95rem;
+}
+
+.tf__field select{
+  height: 42px;              /* matches input feel */
+}.tf__field select option{
+  background: #fff;
+  color: #111;
 }
 
 .tf__field textarea{
