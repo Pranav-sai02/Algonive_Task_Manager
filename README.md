@@ -113,24 +113,6 @@ Assign tasks to different team members
 Each user sees tasks assigned to them or created by them
 
 
-
-
-# 📂 Project Structure
-algonive-task-manager/
-├── src/
-│   ├── components/          # React components
-│   │   ├── Auth/           # Login/Signup components
-│   │   ├── Tasks/          # Task-related components
-│   │   └── Layout/         # Header, navigation, etc.
-│   ├── utils/              # Utility functions
-│   ├── styles/             # CSS files
-│   ├── App.jsx             # Main application component
-│   └── main.jsx            # Application entry point
-├── public/                 # Static assets
-├── index.html             # HTML template
-├── package.json           # Dependencies and scripts
-└── vite.config.js         # Vite configuration
-
 # 🔄 Project Evolution
 This project was built in phases to demonstrate incremental feature development:
 # Phase 1: Task-1 (Single User) ✅
