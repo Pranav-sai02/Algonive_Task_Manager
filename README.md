@@ -197,9 +197,11 @@ Open a Pull Request
 This project is open source and available under the MIT License.
 
 # 👨‍💻 Author
-Your Name
+
+Name : Pranav sai kasinadhuni
 
 LinkedIn: [https://www.linkedin.com/in/pranav-sai-kasinadhuni/]
+
 Email: pranavsaikasinadhuni2@gmail.com
 
 
