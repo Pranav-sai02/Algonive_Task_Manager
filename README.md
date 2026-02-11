@@ -1,4 +1,6 @@
-📋 Algonive Task Manager
+# 📋 Algonive Task Manager
+
+
 A modern, feature-rich task management web application that evolved from a simple personal to-do list into a collaborative team task manager. Built as a phased learning project to demonstrate progressive feature development and real-world software evolution.
 
 🎯 Project Overview
