@@ -3,7 +3,8 @@
 
 A modern, feature-rich task management web application that evolved from a simple personal to-do list into a collaborative team task manager. Built as a phased learning project to demonstrate progressive feature development and real-world software evolution.
 
-🎯 Project Overview
+# 🎯 Project Overview
+
 Algonive Task Manager is a frontend-focused task management application that enables teams to create, assign, and track tasks through a clean and intuitive interface. The project showcases the evolution of a simple CRUD application into a multi-user collaborative platform.
 Key Highlights
 
@@ -15,15 +16,15 @@ Key Highlights
 ⚡ Zero Backend - Pure frontend architecture demonstrating complete client-side logic
 
 
-✨ Features
-🔐 Authentication
+# ✨ Features
+# 🔐 Authentication
 
 User registration with name, email, and password
 Secure login/logout functionality
 Session persistence across page refreshes
 Mock authentication using LocalStorage
 
-📝 Task Management
+# 📝 Task Management
 
 Create Tasks with title, description, and due date
 Assign Tasks to team members
@@ -32,7 +33,7 @@ Status Workflow: PENDING → IN_PROGRESS → COMPLETED
 Smart Notifications: Due-soon and overdue detection
 Task Filtering: View tasks relevant to the current user
 
-🎨 User Interface
+# 🎨 User Interface
 
 Glassmorphism Login Page with modern gradient design
 Responsive Layout optimized for desktop and mobile
@@ -41,7 +42,7 @@ Clean Card Design for organized task display
 Intuitive Navigation with contextual actions
 
 
-🛠️ Tech Stack
+# 🛠️ Tech Stack
 TechnologyPurposeReactUI component libraryViteBuild tool and dev serverJavaScript (ES6+)Core programming languageLocalStorage APIClient-side data persistenceCSS3Styling and animationsHTML5Semantic markup
 Why This Stack?
 
@@ -51,7 +52,7 @@ Why This Stack?
 🚀 Easy Deployment - Static site, deployable anywhere
 
 
-📦 Installation & Setup
+# 📦 Installation & Setup
 Prerequisites
 
 Node.js (v14 or higher)
@@ -79,7 +80,7 @@ Build for Production
 bashnpm run build
 The production-ready files will be in the dist folder.
 
-🚀 Usage Guide
+# 🚀 Usage Guide
 Getting Started
 
 Sign Up
@@ -114,7 +115,7 @@ Each user sees tasks assigned to them or created by them
 
 
 
-📂 Project Structure
+# 📂 Project Structure
 algonive-task-manager/
 ├── src/
 │   ├── components/          # React components
@@ -130,9 +131,9 @@ algonive-task-manager/
 ├── package.json           # Dependencies and scripts
 └── vite.config.js         # Vite configuration
 
-🔄 Project Evolution
+# 🔄 Project Evolution
 This project was built in phases to demonstrate incremental feature development:
-Phase 1: Task-1 (Single User) ✅
+# Phase 1: Task-1 (Single User) ✅
 Goal: Build a functional personal task manager
 Features Implemented:
 
@@ -145,7 +146,7 @@ Responsive card-based UI
 
 Branch: main
 
-Phase 2: Task-2 (Multi-User) ✅
+# Phase 2: Task-2 (Multi-User) ✅
 Goal: Transform into a collaborative team tool
 Major Upgrades:
 
@@ -200,7 +201,7 @@ If I were to continue building this project, here are the features I'd add:
  Mobile App (React Native)
 
 
-🤝 Contributing
+# 🤝 Contributing
 This is a learning project, but suggestions and feedback are welcome!
 
 Fork the repository
@@ -210,25 +211,24 @@ Push to the branch (git push origin feature/AmazingFeature)
 Open a Pull Request
 
 
-📝 License
+# 📝 License
 This project is open source and available under the MIT License.
 
-👨‍💻 Author
+# 👨‍💻 Author
 Your Name
 
-LinkedIn: [Your LinkedIn Profile]
-GitHub: [Your GitHub Profile]
-Email: your.email@example.com
+LinkedIn: [https://www.linkedin.com/in/pranav-sai-kasinadhuni/]
+Email: pranavsaikasinadhuni2@gmail.com
 
 
-🙏 Acknowledgments
+# 🙏 Acknowledgments
 
 Built as part of an internship assignment
 Special thanks to mentors and reviewers who provided feedback
 Inspired by modern task management tools like Trello, Asana, and Jira
 
 
-📸 Screenshots
+# 📸 Screenshots
 Login Page
 Modern glassmorphism design with gradient background
 Task Dashboard
