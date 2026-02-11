@@ -2,10 +2,7 @@ import type { Task } from "../types/task";
 
 const KEY = "algonive_task_manager_v1";
 
-/**
- * Safely load tasks from localStorage.
- * Migrates old Task-1 data → Task-2 structure.
- */
+
 export function loadTasks(): Task[] {
   try {
     const raw = localStorage.getItem(KEY);
@@ -20,18 +17,12 @@ export function loadTasks(): Task[] {
   }
 }
 
-/**
- * Save tasks as-is (already migrated)
- */
+
 export function saveTasks(tasks: Task[]) {
   localStorage.setItem(KEY, JSON.stringify(tasks));
 }
 
-/**
- * Migration logic:
- * - Adds createdBy / assignedTo if missing
- * - Normalizes status
- */
+
 function migrateTask(t: any): Task {
   const now = new Date().toISOString();
 

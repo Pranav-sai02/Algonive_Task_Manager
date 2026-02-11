@@ -1,15 +1,12 @@
-/* ---------- layout only (NO body, NO glass token) ---------- */
+
 
 .app {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 280px 1fr;
-
-  /* ✅ sidebar attached (no gap) */
   gap: 0;
 }
 
-/* Main content spacing lives here */
 .app__main {
   min-width: 0;
   display: flex;
@@ -19,7 +16,6 @@
   padding: 18px;
 }
 
-/* Header row */
 .app__top {
   padding: 14px 18px;
   display: flex;
@@ -28,18 +24,15 @@
   gap: 16px;
 }
 
-/* Content stack */
 .app__content {
   display: grid;
   gap: 18px;
 }
 
-/* Optional: thin divider between sidebar and main (instead of gap) */
 .app__sidebar {
   border-right: 1px solid rgba(30, 80, 140, 0.16);
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   .app {
     grid-template-columns: 1fr;
@@ -72,12 +65,12 @@
   padding: 14px 18px;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* important */
+  justify-content: flex-start;
   gap: 16px;
 }
 
 .app__topRight {
-  margin-left: auto;           /* pushes group to far right */
+  margin-left: auto;       
   display: flex;
   align-items: center;
   gap: 12px;
@@ -88,7 +81,7 @@
   height: 42px;
 
   padding: 0;
-  border-radius: 12px;   /* soft square */
+  border-radius: 12px;  
   
   display: inline-flex;
   align-items: center;

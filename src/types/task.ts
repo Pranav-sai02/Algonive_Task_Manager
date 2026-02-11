@@ -5,12 +5,11 @@ export type Task = {
   id: string;
   title: string;
   description: string;
-  dueDate: string; // YYYY-MM-DD
+  dueDate: string; 
   status: TaskStatus;
 
-  // ✅ Task-2 fields
-  createdBy: string;  // userId (ALG-U-xxxxxx)
-  assignedTo: string; // userId (ALG-U-xxxxxx)
+  createdBy: string;  
+  assignedTo: string; 
 
   createdAt: string;
   updatedAt: string;

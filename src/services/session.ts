@@ -14,7 +14,6 @@ export function getSession(): SessionUser | null {
 
 export function setSession(session: SessionUser) {
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-  // Make App react to login/logout immediately
   window.dispatchEvent(new Event("storage"));
 }
 

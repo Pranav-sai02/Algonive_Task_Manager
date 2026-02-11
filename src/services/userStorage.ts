@@ -11,13 +11,11 @@ const USERS_KEY = "tm_users_v1";
  * Example: ALG-U-582391
  */
 function makeUserId(): string {
-  const random = Math.floor(100000 + Math.random() * 900000); // 6 digits
+  const random = Math.floor(100000 + Math.random() * 900000); 
   return `ALG-U-${random}`;
 }
 
-/**
- * Load all users from localStorage
- */
+
 export function loadUsers(): User[] {
   try {
     const raw = localStorage.getItem(USERS_KEY);
@@ -29,17 +27,11 @@ export function loadUsers(): User[] {
   }
 }
 
-/**
- * Save users to localStorage
- */
 export function saveUsers(users: User[]) {
   localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 
-/**
- * Seed initial users (for testing & demo)
- * Runs only once if no users exist
- */
+
 export function ensureSeedUsers() {
   const existing = loadUsers();
   if (existing.length > 0) return;
@@ -62,9 +54,7 @@ export function ensureSeedUsers() {
   saveUsers(seeded);
 }
 
-/**
- * Find user by email (case-insensitive)
- */
+
 export function findUserByEmail(email: string): User | undefined {
   const users = loadUsers();
   return users.find(
@@ -72,9 +62,7 @@ export function findUserByEmail(email: string): User | undefined {
   );
 }
 
-/**
- * Create a new user (Signup)
- */
+
 export function createUser(
   name: string,
   email: string,

@@ -8,11 +8,11 @@ export type CreateTaskInput = {
   title: string;
   description: string;
   dueDate: string;
-  assignedTo: string; // ✅ userId
+  assignedTo: string; 
 };
 
 export function useTasks() {
-  const session = getSession(); // { userId, name, email } | null
+  const session = getSession();
   const myId = session?.userId ?? "";
 
   const [items, setItems] = useState<Task[]>(() => loadTasks());
@@ -22,7 +22,6 @@ export function useTasks() {
     saveTasks(items);
   }, [items]);
 
-  // ✅ only tasks relevant to current user (small teams)
   const visibleItems = useMemo(() => {
     if (!myId) return [];
     return items.filter((t) => t.createdBy === myId || t.assignedTo === myId);
@@ -67,7 +66,6 @@ export function useTasks() {
     setItems((prev) => [task, ...prev]);
   }
 
-  // ✅ 3-state status update
   function setStatus(id: string, status: TaskStatus) {
     const now = new Date().toISOString();
     setItems((prev) =>
@@ -75,7 +73,6 @@ export function useTasks() {
     );
   }
 
-  // Optional: keep old toggle behavior (PENDING <-> COMPLETED)
   function toggleTask(id: string) {
     const now = new Date().toISOString();
     setItems((prev) =>
@@ -123,8 +120,8 @@ export function useTasks() {
     setFilter,
     counts,
     addTask,
-    setStatus,   // ✅ use this in UI
-    toggleTask,  // optional backward compatibility
+    setStatus,  
+    toggleTask,  
     deleteTask,
     editTask,
     myId,
