@@ -179,7 +179,7 @@ export default function LoginPage() {
                   </span>
                   <input
                     type="email"
-                    placeholder="you@example.com"
+                    placeholder="eg : pranav@test.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -195,7 +195,7 @@ export default function LoginPage() {
                   </span>
                   <input
                     type="password"
-                    placeholder={mode === "LOGIN" ? "Enter password" : "Create password"}
+                    placeholder={mode === "LOGIN" ? "eg : 123456" : "eg : 123456"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -252,10 +252,6 @@ export default function LoginPage() {
                 </div>
               )}
 
-              {/* Small dev hint (optional) */}
-              <div style={{ marginTop: 10, opacity: 0.7, fontSize: 12 }}>
-                Demo users: pranav@test.com / 123456, team@test.com / 123456
-              </div>
             </form>
           </main>
         </div>
